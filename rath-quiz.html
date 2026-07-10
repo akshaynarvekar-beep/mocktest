@@ -1,0 +1,303 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Rath Infotech Digital Marketing Quiz</title>
+<style>
+*{box-sizing:border-box;margin:0;padding:0}
+body{font-family:-apple-system,BlinkMacSystemFont,'Segoe UI',sans-serif;background:#f4f6f9;min-height:100vh;color:#1a1a2e}
+.wrap{max-width:680px;margin:0 auto;padding:2rem 1rem}
+.screen{display:none}.screen.active{display:block}
+h1{font-size:24px;font-weight:600;color:#1a1a2e;margin-bottom:6px}
+h2{font-size:20px;font-weight:600;color:#1a1a2e;margin-bottom:6px}
+p.sub{font-size:14px;color:#6b7280;margin-bottom:1.5rem}
+.card{background:#fff;border:1px solid #e5e7eb;border-radius:12px;padding:1.5rem;margin-bottom:1rem}
+.btn{display:inline-flex;align-items:center;gap:6px;padding:11px 22px;border-radius:8px;border:1px solid #d1d5db;background:#fff;color:#1a1a2e;font-size:14px;font-weight:500;cursor:pointer;transition:all .15s;text-decoration:none}
+.btn:hover{background:#f9fafb}
+.btn.primary{background:#2563eb;color:#fff;border-color:#2563eb}
+.btn.primary:hover{background:#1d4ed8}
+.btn.sm{padding:7px 14px;font-size:13px}
+label{font-size:13px;font-weight:500;color:#374151;display:block;margin-bottom:4px}
+input[type=text],input[type=email]{width:100%;padding:10px 12px;border:1px solid #d1d5db;border-radius:8px;background:#fff;color:#1a1a2e;font-size:14px;margin-bottom:14px}
+input:focus{outline:none;border-color:#2563eb;box-shadow:0 0 0 3px #dbeafe}
+.err{color:#dc2626;font-size:12px;margin-top:-8px;margin-bottom:12px;display:none}
+.timer-bar{height:6px;border-radius:3px;background:#e5e7eb;overflow:hidden;margin-bottom:1.2rem}
+.timer-fill{height:100%;border-radius:3px;background:#2563eb;transition:width .9s linear}
+.timer-fill.warn{background:#f59e0b}
+.timer-fill.hot{background:#ef4444}
+.q-meta{display:flex;justify-content:space-between;align-items:center;margin-bottom:8px}
+.q-label{font-size:12px;color:#6b7280;font-weight:500}
+.timer-txt{font-size:14px;font-weight:600;color:#1a1a2e;font-variant-numeric:tabular-nums}
+.dots{display:flex;gap:4px;flex-wrap:wrap;margin-bottom:1rem}
+.dot{width:9px;height:9px;border-radius:50%;background:#e5e7eb}
+.dot.cur{background:#2563eb}
+.dot.ok{background:#16a34a}
+.dot.bad{background:#ef4444}
+.q-text{font-size:16px;font-weight:600;color:#1a1a2e;margin-bottom:1.2rem;line-height:1.55}
+.opt{display:flex;align-items:center;gap:10px;padding:12px 14px;border:1px solid #e5e7eb;border-radius:8px;cursor:pointer;margin-bottom:8px;background:#fff;transition:all .12s;user-select:none}
+.opt:hover{background:#f9fafb;border-color:#d1d5db}
+.opt.sel{border-color:#2563eb;background:#eff6ff}
+.opt.ok{border-color:#16a34a;background:#f0fdf4}
+.opt.bad{border-color:#ef4444;background:#fef2f2}
+.opt-l{width:28px;height:28px;border-radius:50%;background:#f3f4f6;border:1px solid #e5e7eb;display:flex;align-items:center;justify-content:center;font-size:12px;font-weight:600;flex-shrink:0;color:#374151}
+.opt-t{font-size:14px;color:#1a1a2e;line-height:1.4}
+.grid2{display:grid;grid-template-columns:1fr 1fr;gap:10px;margin-bottom:1.5rem}
+.grid4{display:grid;grid-template-columns:repeat(4,1fr);gap:10px;margin-bottom:1.5rem}
+.stat{background:#f9fafb;border:1px solid #e5e7eb;border-radius:8px;padding:14px;text-align:center}
+.stat .num{font-size:26px;font-weight:700;color:#1a1a2e}
+.stat .lbl{font-size:11px;color:#6b7280;margin-top:3px;text-transform:uppercase;letter-spacing:.5px}
+.res-center{text-align:center;padding:1rem 0}
+.res-icon{font-size:52px;margin-bottom:12px}
+.res-title{font-size:24px;font-weight:700;margin-bottom:4px}
+.res-title.pass{color:#16a34a}
+.res-title.fail{color:#ef4444}
+.res-sub{font-size:14px;color:#6b7280;margin-bottom:1.5rem}
+.tabs{display:flex;gap:0;border-bottom:1px solid #e5e7eb;margin-bottom:1.2rem}
+.tab{padding:9px 18px;font-size:13px;font-weight:500;cursor:pointer;color:#6b7280;border-bottom:2px solid transparent;margin-bottom:-1px;background:none;border-top:none;border-left:none;border-right:none}
+.tab.on{color:#2563eb;border-bottom-color:#2563eb}
+table{width:100%;border-collapse:collapse;font-size:13px}
+th{text-align:left;padding:10px 12px;border-bottom:1px solid #e5e7eb;font-size:11px;color:#6b7280;font-weight:600;text-transform:uppercase;letter-spacing:.4px;background:#f9fafb}
+td{padding:10px 12px;border-bottom:1px solid #f3f4f6;color:#1a1a2e;vertical-align:middle}
+tr:last-child td{border-bottom:none}
+.badge{display:inline-block;padding:3px 10px;border-radius:20px;font-size:11px;font-weight:600}
+.badge.pass{background:#dcfce7;color:#15803d}
+.badge.fail{background:#fee2e2;color:#b91c1c}
+.dash-hdr{display:flex;align-items:center;gap:10px;margin-bottom:1.5rem}
+.dash-hdr h2{flex:1;margin:0}
+.empty{text-align:center;padding:3rem 0;color:#9ca3af;font-size:14px}
+.logo{font-size:18px;font-weight:700;color:#2563eb;letter-spacing:-0.5px;margin-bottom:1.5rem;display:flex;align-items:center;gap:8px}
+.logo span{color:#1a1a2e}
+.tbl-wrap{overflow-x:auto}
+@media(max-width:480px){.grid4{grid-template-columns:repeat(2,1fr)}.btn{padding:10px 16px}}
+</style>
+</head>
+<body>
+<div class="wrap">
+
+<!-- REGISTER -->
+<div id="s-reg" class="screen active">
+  <div class="logo">Rath <span>Infotech</span></div>
+  <h1>Digital Marketing Quiz</h1>
+  <p class="sub">20 questions · 2 minutes per question · 80% to pass</p>
+  <div class="card">
+    <label for="inp-name">Full name</label>
+    <input type="text" id="inp-name" placeholder="Your full name">
+    <label for="inp-email">Email address</label>
+    <input type="email" id="inp-email" placeholder="name@company.com">
+    <p class="err" id="reg-err"></p>
+    <button class="btn primary" onclick="startQuiz()">&#9654; Start quiz</button>
+  </div>
+  <p style="font-size:12px;color:#9ca3af;margin-top:1rem">Topics: SEO, SEM, SMM, PPC, performance marketing and Rath Infotech services.</p>
+  <button class="btn sm" onclick="showDash()" style="margin-top:1rem">&#9776; View results dashboard</button>
+</div>
+
+<!-- QUIZ -->
+<div id="s-quiz" class="screen">
+  <div class="q-meta">
+    <span class="q-label" id="q-label"></span>
+    <span class="timer-txt" id="timer-txt"></span>
+  </div>
+  <div class="timer-bar"><div class="timer-fill" id="timer-fill" style="width:100%"></div></div>
+  <div class="dots" id="dots"></div>
+  <div class="card">
+    <p class="q-text" id="q-text"></p>
+    <div id="opts"></div>
+    <button class="btn primary" id="next-btn" onclick="nextQ()" style="margin-top:1rem;display:none">Next &rarr;</button>
+  </div>
+</div>
+
+<!-- RESULT -->
+<div id="s-result" class="screen">
+  <div class="card">
+    <div class="res-center">
+      <div class="res-icon" id="res-icon"></div>
+      <div class="res-title" id="res-title"></div>
+      <div class="res-sub" id="res-sub"></div>
+      <div class="grid4">
+        <div class="stat"><div class="num" id="rs-score"></div><div class="lbl">Score</div></div>
+        <div class="stat"><div class="num" id="rs-correct"></div><div class="lbl">Correct</div></div>
+        <div class="stat"><div class="num" id="rs-pct"></div><div class="lbl">Percentage</div></div>
+        <div class="stat"><div class="num" id="rs-time"></div><div class="lbl">Avg time</div></div>
+      </div>
+      <button class="btn primary" onclick="showDash()" style="margin-right:8px">&#9776; Dashboard</button>
+      <button class="btn" onclick="retake()">&#8635; Retake</button>
+    </div>
+  </div>
+</div>
+
+<!-- DASHBOARD -->
+<div id="s-dash" class="screen">
+  <div class="dash-hdr">
+    <h2>Results dashboard</h2>
+    <button class="btn sm" onclick="exportCSV()">&#8659; Export CSV</button>
+    <button class="btn sm" onclick="clearAll()">&#128465; Clear</button>
+    <button class="btn sm" onclick="goHome()">&larr; Back</button>
+  </div>
+  <div class="grid4" id="dash-stats"></div>
+  <div class="tabs">
+    <button class="tab on" onclick="switchTab(0,this)">All</button>
+    <button class="tab" onclick="switchTab(1,this)">Passed</button>
+    <button class="tab" onclick="switchTab(2,this)">Failed</button>
+  </div>
+  <div class="tbl-wrap"><div id="dash-table"></div></div>
+</div>
+
+</div>
+<script>
+const Q=[
+  {q:"What does SEO stand for?",o:["Search Engine Optimisation","Social Engagement Online","Site Engagement Operations","Search Experience Optimisation"],a:0},
+  {q:"Is SEO an organic or paid channel?",o:["Paid","Organic","Both paid and organic","Neither"],a:1},
+  {q:"What does SEM stand for?",o:["Social Engagement Marketing","Search Engine Marketing","Site Engagement Metrics","Search Experience Management"],a:1},
+  {q:"Is SEM an organic or paid channel?",o:["Organic","Both organic and paid","Paid","Neither"],a:2},
+  {q:"What does SMM stand for?",o:["Search Media Marketing","Site Management Module","Social Media Marketing","Sponsored Media Marketing"],a:2},
+  {q:"What does PPC stand for?",o:["Pay Per Click","Page Per Customer","Paid Promotion Channel","Performance Per Campaign"],a:0},
+  {q:"Which platform is used for Google paid advertising?",o:["Meta Ads Manager","Google Ads","Google Search Console","Google Analytics"],a:1},
+  {q:"What does CTR stand for in digital marketing?",o:["Cost To Reach","Click Through Rate","Content Tracking Report","Channel Traffic Ratio"],a:1},
+  {q:"What does CPL stand for?",o:["Cost Per Lead","Content Per Link","Channel Performance Level","Click Per Landing"],a:0},
+  {q:"Which of the following is NOT a Rath Infotech service?",o:["SEO","Performance Marketing","Logistics and Supply Chain","Web Development"],a:2},
+  {q:"How many years has Rath Infotech been serving brands?",o:["5 years","7 years","10+ years","15 years"],a:2},
+  {q:"Which of these is a Rath Infotech client?",o:["Zomato","Airtel","Paytm","Swiggy"],a:1},
+  {q:"What does CRM stand for?",o:["Creative Resource Management","Customer Relationship Management","Content Reach Maximiser","Campaign Result Metric"],a:1},
+  {q:"What is a Meta Instant Form used for?",o:["Designing websites","Collecting leads directly inside Facebook and Instagram ads","Tracking organic search rankings","Creating email campaigns"],a:1},
+  {q:"What is the primary purpose of Google Analytics?",o:["Managing Google Ads spend","Designing landing pages","Tracking and reporting website traffic and user behaviour","Scheduling social media posts"],a:2},
+  {q:"How many specialists are on the Rath Infotech team?",o:["10+","30+","50+","100+"],a:2},
+  {q:"What does ROI stand for?",o:["Rate of Interaction","Return On Investment","Reach Of Impressions","Record Of Insights"],a:1},
+  {q:"What is the contact email for The Piping Mart?",o:["info@rathinfotech.com","sales@rathinfotech.com","info@thepipingmart.com","contact@pipingmart.com"],a:2},
+  {q:"What does A/B testing mean in digital marketing?",o:["Testing two versions of a page or ad to see which performs better","Comparing two social media platforms","Auditing a website for SEO issues","Testing email server delivery"],a:0},
+  {q:"What does 'conversion' mean in digital marketing?",o:["The number of people who saw your ad","When a visitor completes a desired action such as filling a form or making a purchase","The total ad spend for a campaign","The number of clicks on an ad"],a:1}
+];
+
+let user={name:'',email:''},cur=0,answers=[],timers=[],tiInt=null,tLeft=120;
+let results=JSON.parse(localStorage.getItem('riq_results')||'[]');
+
+function show(id){document.querySelectorAll('.screen').forEach(s=>s.classList.remove('active'));document.getElementById(id).classList.add('active')}
+
+function startQuiz(){
+  const n=document.getElementById('inp-name').value.trim();
+  const e=document.getElementById('inp-email').value.trim();
+  const er=document.getElementById('reg-err');
+  if(!n||!e){er.style.display='block';er.textContent='Please enter your name and email to begin.';return}
+  if(!/\S+@\S+\.\S+/.test(e)){er.style.display='block';er.textContent='Please enter a valid email address.';return}
+  er.style.display='none';
+  user={name:n,email:e};cur=0;answers=[];timers=[];
+  buildDots();show('s-quiz');loadQ();
+}
+
+function buildDots(){
+  const c=document.getElementById('dots');c.innerHTML='';
+  Q.forEach((_,i)=>{const d=document.createElement('div');d.className='dot';d.id='d'+i;c.appendChild(d)});
+}
+
+function upDots(){
+  Q.forEach((_,i)=>{
+    const d=document.getElementById('d'+i);
+    d.className='dot'+(i===cur?' cur':i<cur?(answers[i]===Q[i].a?' ok':' bad'):'');
+  });
+}
+
+function loadQ(){
+  clearInterval(tiInt);
+  document.getElementById('q-label').textContent='Question '+(cur+1)+' of '+Q.length;
+  document.getElementById('q-text').textContent=Q[cur].q;
+  upDots();
+  const oc=document.getElementById('opts');oc.innerHTML='';
+  ['A','B','C','D'].forEach((l,i)=>{
+    const d=document.createElement('div');d.className='opt';
+    d.innerHTML='<div class="opt-l">'+l+'</div><span class="opt-t">'+Q[cur].o[i]+'</span>';
+    d.onclick=()=>pick(i,d);oc.appendChild(d);
+  });
+  document.getElementById('next-btn').style.display='none';
+  tLeft=120;tickUI();
+  tiInt=setInterval(()=>{tLeft--;tickUI();if(tLeft<=0){clearInterval(tiInt);autoSkip();}},1000);
+}
+
+function tickUI(){
+  const m=Math.floor(tLeft/60),s=tLeft%60;
+  document.getElementById('timer-txt').textContent=m+':'+(s<10?'0':'')+s;
+  const pct=(tLeft/120)*100;
+  const f=document.getElementById('timer-fill');
+  f.style.width=pct+'%';
+  f.className='timer-fill'+(pct<25?' hot':pct<50?' warn':'');
+}
+
+function autoSkip(){answers[cur]=-1;timers[cur]=120;nextQ();}
+
+function pick(i,el){
+  if(answers[cur]!==undefined)return;
+  clearInterval(tiInt);timers[cur]=120-tLeft;answers[cur]=i;
+  document.querySelectorAll('.opt').forEach((o,j)=>{
+    if(j===Q[cur].a)o.classList.add('ok');
+    else if(j===i)o.classList.add('bad');
+  });
+  document.getElementById('next-btn').style.display='inline-flex';
+}
+
+function nextQ(){
+  clearInterval(tiInt);
+  if(answers[cur]===undefined){answers[cur]=-1;timers[cur]=120;}
+  cur++;
+  if(cur<Q.length){loadQ();}else{finish();}
+}
+
+function finish(){
+  const correct=answers.filter((a,i)=>a===Q[i].a).length;
+  const pct=Math.round((correct/Q.length)*100);
+  const pass=pct>=80;
+  const avg=Math.round(timers.reduce((a,b)=>a+b,0)/timers.length);
+  const rec={name:user.name,email:user.email,score:correct,pct,pass,avg,date:new Date().toLocaleDateString('en-IN'),ts:Date.now()};
+  results.unshift(rec);localStorage.setItem('riq_results',JSON.stringify(results));
+  document.getElementById('res-icon').textContent=pass?'✅':'❌';
+  const rt=document.getElementById('res-title');rt.textContent=pass?'Passed':'Failed';rt.className='res-title '+(pass?'pass':'fail');
+  document.getElementById('res-sub').textContent=pass?'Well done, '+user.name.split(' ')[0]+'! You scored '+pct+'%. You passed.':'You scored '+pct+'%. You need 80% to pass. Try again.';
+  document.getElementById('rs-score').textContent=correct+'/20';
+  document.getElementById('rs-correct').textContent=correct;
+  document.getElementById('rs-pct').textContent=pct+'%';
+  document.getElementById('rs-time').textContent=avg+'s';
+  show('s-result');
+}
+
+function showDash(){renderDash(0);show('s-dash');}
+function goHome(){show('s-reg');}
+function retake(){cur=0;answers=[];timers=[];user={name:'',email:''};document.getElementById('inp-name').value='';document.getElementById('inp-email').value='';show('s-reg');}
+
+function renderDash(f){
+  let d=results;
+  if(f===1)d=results.filter(r=>r.pass);
+  if(f===2)d=results.filter(r=>!r.pass);
+  const t=results.length,p=results.filter(r=>r.pass).length;
+  const avg=t?Math.round(results.reduce((a,b)=>a+b.pct,0)/t):0;
+  document.getElementById('dash-stats').innerHTML=
+    `<div class="stat"><div class="num">${t}</div><div class="lbl">Attempts</div></div>
+     <div class="stat"><div class="num">${p}</div><div class="lbl">Passed</div></div>
+     <div class="stat"><div class="num">${t-p}</div><div class="lbl">Failed</div></div>
+     <div class="stat"><div class="num">${avg}%</div><div class="lbl">Avg score</div></div>`;
+  if(!d.length){document.getElementById('dash-table').innerHTML='<div class="empty">No results yet.</div>';return;}
+  document.getElementById('dash-table').innerHTML=`<table>
+    <thead><tr><th>Name</th><th>Email</th><th>Result</th><th>Score</th><th>%</th><th>Avg time</th><th>Date</th></tr></thead>
+    <tbody>${d.map(r=>`<tr>
+      <td><strong>${r.name}</strong></td>
+      <td style="color:#6b7280">${r.email}</td>
+      <td><span class="badge ${r.pass?'pass':'fail'}">${r.pass?'Pass':'Fail'}</span></td>
+      <td>${r.score}/20</td>
+      <td>${r.pct}%</td>
+      <td>${r.avg}s</td>
+      <td style="color:#6b7280">${r.date}</td>
+    </tr>`).join('')}</tbody></table>`;
+}
+
+function switchTab(f,el){document.querySelectorAll('.tab').forEach(t=>t.classList.remove('on'));el.classList.add('on');renderDash(f);}
+
+function clearAll(){if(confirm('Clear all results?')){results=[];localStorage.removeItem('riq_results');renderDash(0);}}
+
+function exportCSV(){
+  if(!results.length){alert('No results to export.');return;}
+  const rows=[['Name','Email','Result','Score','Percentage','Avg Time (s)','Date']];
+  results.forEach(r=>rows.push([r.name,r.email,r.pass?'Pass':'Fail',r.score+'/20',r.pct+'%',r.avg,r.date]));
+  const csv=rows.map(r=>r.map(v=>'"'+String(v).replace(/"/g,'""')+'"').join(',')).join('\n');
+  const a=document.createElement('a');a.href='data:text/csv;charset=utf-8,'+encodeURIComponent(csv);
+  a.download='rath_quiz_results.csv';a.click();
+}
+</script>
+</body>
+</html>
